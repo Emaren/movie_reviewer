@@ -10,6 +10,9 @@
     <div class="col-md-8">
       <h2><%= @movie.title %></h2>
       <h3><%= @movie.director %></h3>
+      <h2>Average Rating</h2>
+      <div class="average-review-rating" data-score=<%= @average_review %>></div>
+      <span>Based on <%= @movie.reviews.count %></span>
       <p><%= @movie.description %></p>
     </div>
 
@@ -20,6 +23,13 @@
   <div class="col-md-4">
 
     <!-- Where reviews go. -->
+
+    <%= render @movie.reviews %>
+
+    <div>
+      <%= link_to "Add Review", new_movie_review_path(@movie) %>
+
+    </div>
 
   </div>
 
@@ -37,3 +47,25 @@
 
 <% end %>
 <% end %>
+
+
+<script>
+  $('.review-rating').raty({
+    readOnly: true,
+    score: function() {
+      return $(this).attr('data-score');
+    },
+    path: '/assets/'
+  });
+  </script>
+
+
+<script>
+  $('.average-review-rating').raty({
+    readOnly: true,
+    path: '/assets/',
+    score: function() {
+      return $(this).attr('data-score')
+    }
+  });
+</script>
