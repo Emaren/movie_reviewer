@@ -1,15 +1,23 @@
-    <h1 class="current-category"><%= params[:category] %></h1>
+<h1 class="current-category"><%= params[:category] %></h1>
 
-    <% if @movies.count == 0 %>
+<% if @movies.count == 0 %>
 
-      <h1>There are no movies in this category.</h1>
+	<h1>There are no movies currently in this category</h1>
 
-    <% else %>
+<% else %>
 
-      <% @movies.each do |movie| %>
-        <!-- <h2><%#= link_to movie.title, movie_path(movie) %></h2> -->
-        <a href="/movies/<%= movie.id %>">
-          <%= image_tag movie.movie_img.url(:movie_index) %>
-        </a>
-        <% end %>
-        <% end %>
+	<div class="row">
+
+		<% @movies.each do |movie| %>
+
+			<div class="col-md-3">
+				<a href="/movies/<%= movie.id %>">
+					<%= image_tag movie.movie_img.url(:movie_index), class: "movie" %>
+				</a>
+			</div>
+
+		<% end %>
+
+	</div>
+
+<% end %>
