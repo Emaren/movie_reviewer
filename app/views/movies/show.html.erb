@@ -8,12 +8,18 @@
     </div>
 
     <div class="col-md-8">
-      <h2><%= @movie.title %></h2>
-      <h3><%= @movie.director %></h3>
-      <h2>Average Rating</h2>
-      <div class="average-review-rating" data-score=<%= @average_review %>></div>
-      <span>Based on <%= @movie.reviews.count %></span>
-      <p><%= @movie.description %></p>
+
+      <div class="movie-info">
+
+        <h2 class="movie-title"><%= @movie.title %></h2>
+        <h3 class="movie-director"><span>From</span> <%= @movie.director %></h3>
+        <h2 class="avg-rating">Average Rating</h2>
+        <div class="average-review-rating" data-score=<%= @average_review %>></div>
+        <span class="number-of-reviews">Based on <%= @movie.reviews.count %> reviews</span>
+        <p class="book-description"><%= @movie.description %></p>
+
+      </div>
+
     </div>
 
 </div>
@@ -22,32 +28,39 @@
 
   <div class="col-md-4">
 
+    <div class="reviews">
+
     <!-- Where reviews go. -->
+      <h1>Reviews</h1>
+      <%= render @movie.reviews %>
 
-    <%= render @movie.reviews %>
-
-    <div>
-      <%= link_to "Add Review", new_movie_review_path(@movie) %>
-
+      <div>
+      <%= link_to "Add Review", new_movie_review_path(@movie), class: "
+                                                        btn-custom" %>
+      </div>
     </div>
 
   </div>
 
 </div>
 
-<%= link_to 'Back', root_path %>
+  <div class="links btn-group">
 
-<% if user_signed_in? %>
+    <%= link_to 'Back', root_path, class: "btn btn-custom" %>
 
-<% if @movie.user_id == current_user.id %>
+    <% if user_signed_in? %>
 
-<%= link_to 'Edit', edit_movie_path(@movie) %>
-<%= link_to 'Delete', movie_path(@movie), method: :delete,
-                                          data: { confirm: "Confirm Deletion?" } %>
+      <% if @movie.user_id == current_user.id %>
 
-<% end %>
-<% end %>
+    <%= link_to 'Edit', edit_movie_path(@movie), class: "btn btn-custom" %>
+    <%= link_to 'Delete', movie_path(@movie), method: :delete,
+                                              data: { confirm: "Confirm Deletion?" },
+                                              class: "btn btn-custom" %>
 
+    <% end %>
+  <% end %>
+
+</div>
 
 <script>
   $('.review-rating').raty({

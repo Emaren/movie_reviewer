@@ -1,16 +1,24 @@
-<div class="review-rating" data-score="<%= review.rating %>">
+<div class="review">
 
-</div>
-<p><%= review.comment %></p>
+<div class="review-rating" data-score="<%= review.rating %>"></div>
+
+<p class="review-comment"><%= review.comment %></p>
 
 
 <% if user_signed_in? %>
 
   <% if review.user_id == current_user.id %>
 
+    <div class="links btn-group">
 
-<%= link_to 'Edit', edit_movie_review_path(review.movie, review) %>
-<%= link_to "Delete", movie_review_path(review.movie, review), method: :delete,
-                                                                data: { confirm: "Confirm Deletion?" } %>
+      <%= link_to 'Edit', edit_movie_review_path(review.movie, review), class: "btn
+       btn-custom" %>
+      <%= link_to "Delete", movie_review_path(review.movie, review), method: :delete,
+                                                                     data: { confirm:
+                                                   "Confirm Deletion?" }, class: "btn
+                                                                        btn-custom" %>
+
+    </div>
+  <% end %>
 <% end %>
-<% end %>
+</div>
